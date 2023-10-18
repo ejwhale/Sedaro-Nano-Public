@@ -18,9 +18,11 @@ If you have any questions or issues while you work through this problem or if yo
    - Please note that **only** cloning via HTTPS is supported
    - Please **do not** commit changes to any branch of this repository. If you would like to use git, you may fork this repository to create a private repo of your own
 2. Run
-   - Using a Jupyter-friendly IDE, "Run All" code cells in `sim.ipynb` to produce a `data.js` file
-   - Open `index.html` in a browser and you should see a plot like the one below
-   - That's it! ✅
+   - Build the docker image with the following command, from inside the sedaro-nano directory. This requires having Docker desktop (on Mac/Windows) or Docker engine (on Linux) installed:
+    ```docker build -t sedaro-nano .```
+   - Run a docker container with the built image:
+    ```docker run -d -p 8080:3000 sedaro-nano```
+4. That's it ✅! Sedaro Nano should now be available via web browser at http://localhost:8080/. It may take a few moments for the container to fully come up and serve the page.
 
 ## Your Task
 
@@ -33,7 +35,6 @@ If you have any questions or issues while you work through this problem or if yo
   - Make the system more generic/extensible
   - Make it fast
 - Front End:
-  - Set up a framework like React
   - Add cool visualizations and interactivity
   - Improve efficiency/caching
 - Data:
@@ -47,7 +48,6 @@ If you have any questions or issues while you work through this problem or if yo
 - Etc:
   - Port to a language of your choice
   - Set up testing
-  - Containerize
 - Whatever you want; these are just suggestions to get you thinking
 
 ![](./screenshot.png)
