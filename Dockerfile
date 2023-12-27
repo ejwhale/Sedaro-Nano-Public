@@ -1,14 +1,15 @@
 # Debian-based node base image
 FROM node:20-bookworm
 
-# Set the working directory in the container
-WORKDIR /sedaro-nano/
+# Add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# Copy all required files to the container
-COPY public/ /sedaro-nano/public
-COPY src/ /sedaro-nano/src
-COPY package*.json /sedaro-nano/
-COPY sim.py /sedaro-nano/
+# Create and set working directory
+RUN mkdir /app
+WORKDIR /app
+
+# Add app
+COPY ./app ./
 
 # Install project dependencies
 RUN npm install

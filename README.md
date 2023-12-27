@@ -17,12 +17,9 @@ If you have any questions or issues while you work through this problem or if yo
 1. Clone this repository.
    - Please note that **only** cloning via HTTPS is supported
    - Please **do not** commit changes to any branch of this repository. If you would like to use git, you may fork this repository to create a private repo of your own
-2. Run
-   - Build the docker image with the following command, from inside the sedaro-nano directory. This requires having Docker desktop (on Mac/Windows) or Docker engine (on Linux) installed:
-    ```docker build -t sedaro-nano .```
-   - Run a docker container with the built image:
-    ```docker run -d -p 8080:3000 sedaro-nano```
-4. That's it ✅! Sedaro Nano should now be available via web browser at http://localhost:8080/. It may take a few moments for the container to fully come up and serve the page.
+2. To compile and run the app, execute the following command
+   - ```docker compose up app```
+4. That's it ✅! Sedaro Nano should now be available via web browser at http://localhost:3000/. It may take a few moments for the container to fully come up and serve the page. Changes to the react app should auto reload the webpage.
 
 ## Your Task
 
