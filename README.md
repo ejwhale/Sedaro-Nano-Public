@@ -19,7 +19,7 @@ Once you have completed your solution, please follow the submission steps below.
 1. Clone this repository.
    - Please note that **only** cloning via HTTPS is supported
    - Please **do not** commit changes to any branch of this repository. If you would like to use git, you may fork this repository to create a private repo of your own
-2. To compile and run the app, execute the following command
+2. Ensure that Docker is installed and running. To compile and run the app, execute the following command
    - `docker compose up`
    - Ensure your localhost ports `5000` and `8000` are available first.
 3. That's it ✅! Sedaro Nano should now be available via web browser at http://localhost:5000/. The API is running at http://localhost:8000/.

@@ -40,7 +40,7 @@ class Simulator:
             data = self.store[t]
         except IndexError:
             data = []
-        return reduce(__or__, data, {})
+        return reduce(__or__, data, {}) # combine all data into one dictionary
 
     def simulate(self, iterations: int = 500):
         for _ in range(iterations):

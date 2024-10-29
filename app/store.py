@@ -38,7 +38,10 @@ class QRangeStore:
         self.store = []
 
     def __setitem__(self, rng, value):
-        (low, high) = rng
+        try:
+            (low, high) = rng
+        except (TypeError, ValueError):
+            raise IndexError("Invalid Range: must provide a low and high value.")
         if not low < high:
             raise IndexError("Invalid Range.")
         self.store.append((low, high, value))
