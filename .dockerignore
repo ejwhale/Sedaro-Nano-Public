@@ -1,4 +1,11 @@
-.git
-./app/node_modules
-.dockerignore
-Dockerfile
+**/node_modules
+**/data.json
+**/.DS_Store
+**/.venv
+**/__pycache__
+**/.vscode
+**/instance
+**/database.db
+**/.git
+**/.dockerignore
+**/Dockerfile
