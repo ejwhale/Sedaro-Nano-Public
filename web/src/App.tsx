@@ -36,18 +36,29 @@ const App = () => {
 
         setInitialState(data[0][2]);
 
-        data.forEach(([t0, t1, frame]) => {
-          for (let [agentId, { x, y, vx, vy }] of Object.entries(frame)) {
-            updatedPositionData[agentId] = updatedPositionData[agentId] || { x: [], y: [] };
-            updatedPositionData[agentId].x.push(x);
-            updatedPositionData[agentId].y.push(y);
-
-            updatedVelocityData[agentId] = updatedVelocityData[agentId] || { x: [], y: [] };
-            updatedVelocityData[agentId].x.push(vx);
-            updatedVelocityData[agentId].y.push(vy);
-          }
+        const baseData = () => ({
+          x: [],
+          y: [],
+          z: [],
+          type: 'scatter3d',
+          mode: 'lines+markers',
+          marker: { size: 4 },
+          line: { width: 2 },
         });
 
+        data.forEach(([t0, t1, frame]) => {
+          for (let [agentId, { x, y, z, vx, vy, vz }] of Object.entries(frame)) {
+            updatedPositionData[agentId] = updatedPositionData[agentId] || baseData();
+            updatedPositionData[agentId].x.push(x);
+            updatedPositionData[agentId].y.push(y);
+            updatedPositionData[agentId].z.push(z);
+
+            updatedVelocityData[agentId] = updatedVelocityData[agentId] || baseData();
+            updatedVelocityData[agentId].x.push(vx);
+            updatedVelocityData[agentId].y.push(vy);
+            updatedVelocityData[agentId].z.push(vz);
+          }
+        });
         setPositionData(Object.values(updatedPositionData));
         setVelocityData(Object.values(updatedVelocityData));
         console.log('Set plot data!');
@@ -72,21 +83,25 @@ const App = () => {
       }}
     >
       {/* Flex: https://www.radix-ui.com/themes/docs/components/flex */}
-      <Flex direction='column' m='4' width='100%' justify='center' align='center'>
-        <Heading as='h1' size='8' weight='bold' mb='4'>
+      <Flex direction="column" m="4" width="100%" justify="center" align="center">
+        <Heading as="h1" size="8" weight="bold" mb="4">
           Simulation Data
         </Heading>
         <Link to={Routes.FORM}>Define new simulation parameters</Link>
-        <Separator size='4' my='5' />
-        <Flex direction='row' width='100%' justify='center'>
+        <Separator size="4" my="5" />
+        <Flex direction="row" width="100%" justify="center">
           <Plot
             style={{ width: '45%', height: '100%', margin: '5px' }}
             data={positionData}
             layout={{
               title: 'Position',
-              yaxis: { scaleanchor: 'x' },
+              scene: {
+                xaxis: { title: 'X' },
+                yaxis: { title: 'Y' },
+                zaxis: { title: 'Z' },
+              },
               autosize: true,
-              dragmode: 'pan',
+              dragmode: 'turntable',
             }}
             useResizeHandler
             config={{
@@ -98,9 +113,13 @@ const App = () => {
             data={velocityData}
             layout={{
               title: 'Velocity',
-              yaxis: { scaleanchor: 'x' },
+              scene: {
+                xaxis: { title: 'X' },
+                yaxis: { title: 'Y' },
+                zaxis: { title: 'Z' },
+              },
               autosize: true,
-              dragmode: 'pan',
+              dragmode: 'turntable',
             }}
             useResizeHandler
             config={{
@@ -108,7 +127,7 @@ const App = () => {
             }}
           />
         </Flex>
-        <Flex justify='center' width='100%' m='4'>
+        <Flex justify="center" width="100%" m="4">
           <Table.Root
             style={{
               width: '800px',
@@ -118,20 +137,20 @@ const App = () => {
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>Agent</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Initial Position (x,y)</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Initial Position (x,y, z)</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Initial Velocity (x,y)</Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
 
             <Table.Body>
-              {Object.entries(initialState).map(([agentId, { x, y, vx, vy }]) => (
+              {Object.entries(initialState).map(([agentId, { x, y, z, vx, vy, vz }]) => (
                 <Table.Row key={agentId}>
                   <Table.RowHeaderCell>{agentId}</Table.RowHeaderCell>
                   <Table.Cell>
-                    ({x}, {y})
+                    ({x}, {y}, {z})
                   </Table.Cell>
                   <Table.Cell>
-                    ({vx}, {vy})
+                    ({vx}, {vy}, {vz})
                   </Table.Cell>
                 </Table.Row>
               ))}
